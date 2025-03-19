@@ -29,6 +29,7 @@ export interface IRepayFundsInput {
 }
 export interface IRejectApplicationInput {
     applicationId: string;
+    adminId: string;
 }
 export interface IHandlerEvent<T = any> extends Omit<APIGatewayProxyEvent, 'body'> {
     body: string;

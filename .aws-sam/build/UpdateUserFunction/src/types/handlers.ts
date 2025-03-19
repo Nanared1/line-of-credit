@@ -40,6 +40,7 @@ export interface IRepayFundsInput {
 
 export interface IRejectApplicationInput {
   applicationId: string;
+  adminId: string;
 }
 
 // Handler Event Types

@@ -12,6 +12,8 @@
         "dev": "npx tsc && sam build --cached && sam local start-api --env-vars env.json"
     },
     "dependencies": {
+        "@types/jsonwebtoken": "^9.0.9",
+        "jsonwebtoken": "^9.0.2",
         "mongoose": "^7.6.3"
     },
     "devDependencies": {

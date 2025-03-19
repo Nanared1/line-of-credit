@@ -9,7 +9,7 @@ Globals:
       Variables:
         MONGODB_URI:
           Ref: MongoDBUri
-    MemorySize: 256
+    MemorySize: 1024
 Parameters:
   MongoDBUri:
     Type: String
@@ -22,8 +22,10 @@ Resources:
       StageName: prod
       Cors:
         AllowMethods: '''GET,POST,PUT,DELETE,OPTIONS'''
-        AllowHeaders: '''Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'''
+        AllowHeaders: '''Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Admin-Token'''
         AllowOrigin: '''*'''
+        MaxAge: '''300'''
+        AllowCredentials: true
   CreateUserFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -144,6 +146,51 @@ Resources:
             Method: GET
     Metadata:
       SamResourceId: GetUserApplicationsFunction
+  GetAllClientApplicationsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: GetAllClientApplicationsFunction
+      Handler: dist/handlers/applications.getAllClientApplications
+      Events:
+        GetAllClientApplications:
+          Type: Api
+          Properties:
+            RestApiId:
+              Ref: ApiGatewayApi
+            Path: /applications
+            Method: GET
+    Metadata:
+      SamResourceId: GetAllClientApplicationsFunction
+  GetApplicationTransactionsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: GetApplicationTransactionsFunction
+      Handler: dist/handlers/applications.getApplicationTransactions
+      Events:
+        GetApplicationTransactions:
+          Type: Api
+          Properties:
+            RestApiId:
+              Ref: ApiGatewayApi
+            Path: /applications/{applicationId}/transactions
+            Method: GET
+    Metadata:
+      SamResourceId: GetApplicationTransactionsFunction
+  GetAllUsersFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: GetAllUsersFunction
+      Handler: dist/handlers/users.getAllUsers
+      Events:
+        GetAllUsers:
+          Type: Api
+          Properties:
+            RestApiId:
+              Ref: ApiGatewayApi
+            Path: /users
+            Method: GET
+    Metadata:
+      SamResourceId: GetAllUsersFunction
 Outputs:
   ApiEndpoint:
     Description: API Gateway endpoint URL

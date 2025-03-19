@@ -6,6 +6,7 @@ export interface IUser {
   lastName: string;
   email: string;
   creditLimit: number;
+  isAdmin: boolean;
   createdAt: Date;
   updatedAt: Date;
 } 

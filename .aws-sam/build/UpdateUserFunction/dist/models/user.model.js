@@ -40,6 +40,7 @@ const UserSchema = new mongoose_1.Schema({
     lastName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     creditLimit: { type: Number, required: true, min: 0 },
+    isAdmin: { type: Boolean, default: false },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
 });

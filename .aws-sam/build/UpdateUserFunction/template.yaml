@@ -9,7 +9,7 @@ Globals:
     Environment:
       Variables:
         MONGODB_URI: !Ref MongoDBUri
-    MemorySize: 256
+    MemorySize: 1024
 
 Parameters:
   MongoDBUri:
@@ -24,8 +24,10 @@ Resources:
       StageName: prod
       Cors:
         AllowMethods: "'GET,POST,PUT,DELETE,OPTIONS'"
-        AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+        AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Admin-Token'"
         AllowOrigin: "'*'"
+        MaxAge: "'300'"
+        AllowCredentials: true
 
   # User endpoints
   CreateUserFunction:
@@ -131,6 +133,45 @@ Resources:
           Properties:
             RestApiId: !Ref ApiGatewayApi
             Path: /users/{userId}/applications
+            Method: GET
+
+  GetAllClientApplicationsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: .
+      Handler: dist/handlers/applications.getAllClientApplications
+      Events:
+        GetAllClientApplications:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGatewayApi
+            Path: /applications
+            Method: GET
+  
+  GetApplicationTransactionsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: .
+      Handler: dist/handlers/applications.getApplicationTransactions
+      Events:
+        GetApplicationTransactions:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGatewayApi
+            Path: /applications/{applicationId}/transactions
+            Method: GET
+
+  GetAllUsersFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: .
+      Handler: dist/handlers/users.getAllUsers
+      Events:
+        GetAllUsers:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGatewayApi
+            Path: /users
             Method: GET
 
 Outputs:

@@ -1,173 +1,120 @@
-# Line of Credit API
+# Line of Credit Demo
 
-A serverless API for managing line of credit applications using AWS Lambda, MongoDB, and TypeScript.
+A demo application showcasing a line of credit system with user management, application processing, and transaction tracking.
 
-## Features
+## 🚀 Quick Start
 
-- User management (create, read, update)
-- Line of credit application management
-- Fund disbursement and repayment
-- Application status tracking
-- Transaction history
+### Prerequisites
+- Node.js (v14 or higher)
+- MongoDB running locally or a MongoDB Atlas connection string
+- AWS SAM CLI (for local development)
 
-## Prerequisites
+### Running the Application
 
-- Node.js 18.x
-- AWS CLI configured with appropriate credentials
-- AWS SAM CLI
-- MongoDB instance
-
-## Setup
-
-1. Install dependencies:
+1. **Start the Backend**
 ```bash
+# Install dependencies
 npm install
-```
 
-2. Build the project:
-```bash
-npm run build
-```
+# Build the application
+sam build
 
-3. Deploy to AWS:
-```bash
-sam deploy --guided
-```
-
-When prompted, provide your MongoDB connection URI.
-
-## API Endpoints
-
-### Users
-
-#### Create User
-- **POST** `/users`
-- Body:
-```json
-{
-  "name": "John Doe",
-  "email": "john@example.com",
-  "creditLimit": 10000
-}
-```
-
-#### Get User
-- **GET** `/users/{userId}`
-
-#### Update User
-- **PUT** `/users/{userId}`
-- Body:
-```json
-{
-  "name": "John Doe Updated",
-  "email": "john.updated@example.com",
-  "creditLimit": 15000
-}
-```
-
-### Applications
-
-#### Create Application
-- **POST** `/applications`
-- Body:
-```json
-{
-  "userId": "user_id",
-  "requestedAmount": 5000,
-  "expressDelivery": true,
-  "tip": 100
-}
-```
-
-#### Disburse Funds
-- **POST** `/applications/disburse`
-- Body:
-```json
-{
-  "applicationId": "application_id",
-  "amount": 5000,
-  "expressDelivery": true,
-  "tip": 100
-}
-```
-
-#### Repay Funds
-- **POST** `/applications/repay`
-- Body:
-```json
-{
-  "applicationId": "application_id",
-  "amount": 5000
-}
-```
-
-#### Reject Application
-- **POST** `/applications/reject`
-- Body:
-```json
-{
-  "applicationId": "application_id",
-  "adminId": "admin_id"
-}
-```
-
-#### Get User Applications
-- **GET** `/users/{userId}/applications`
-
-## Application States
-
-1. **Open**: Application created but funds not disbursed
-2. **Cancelled**: User-initiated cancellation before disbursement
-3. **Rejected**: Admin has rejected the application
-4. **Outstanding**: Funds have been disbursed
-5. **Repaid**: User has fully repaid the outstanding amount
-
-## Development
-
-1. Install dependencies:
-```bash
-npm install
-```
-
-2. Start local development:
-```bash
+# Start the API locally
 npm run dev
 ```
 
-3. Run tests:
+2. **Start the Frontend**
 ```bash
+# Navigate to the frontend directory
+cd line-of-credit-frontend
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+```
+
+3. **Access the Application**
+- Frontend: http://localhost:5173
+- Backend API: http://localhost:3000
+
+## 🏗️ Project Structure
+
+```
+line-of-credit/
+├── src/
+│   ├── handlers/         # Lambda function handlers
+│   ├── models/          # MongoDB models
+│   ├── utils/           # Utility functions
+│   └── types/           # TypeScript type definitions
+├── line-of-credit-frontend/
+│   ├── src/
+│   │   ├── components/  # React components
+│   │   ├── types/      # TypeScript type definitions
+│   │   └── App.tsx     # Main application component
+│   └── package.json
+├── template.yaml        # AWS SAM template
+└── package.json
+```
+
+## 🔧 Configuration
+
+1. Create a `.env` file in the root directory with the following variables:
+```env
+MONGODB_URI=your_mongodb_connection_string
+NODE_ENV=development
+```
+
+2. Update the frontend API URL in `line-of-credit-frontend/src/App.tsx` if needed:
+```typescript
+const API_BASE_URL = 'http://localhost:3000'
+```
+
+## 🎯 Features
+
+- User management with credit limits
+- Application processing workflow
+- Transaction tracking
+- Admin dashboard
+- Real-time status updates
+- Responsive design
+
+## 🧪 Testing
+
+```bash
+# Run backend tests
+npm test
+
+# Run frontend tests
+cd line-of-credit-frontend
 npm test
 ```
 
-## Architecture
+## 📝 API Endpoints
 
-- AWS Lambda functions for serverless compute
-- MongoDB for data storage
-- API Gateway for HTTP endpoints
-- TypeScript for type safety
-- Mongoose for MongoDB ODM
+### Users
+- `GET /users` - Get all users
+- `GET /users/:id` - Get user by ID
+- `POST /users` - Create new user
+- `PUT /users/:id` - Update user
 
-## Security
+### Applications
+- `GET /applications` - Get all applications
+- `GET /applications/:id` - Get application by ID
+- `POST /applications` - Create new application
+- `POST /applications/disburse` - Disburse funds
+- `POST /applications/repay` - Repay funds
+- `GET /applications/:id/transactions` - Get application transactions
 
-- Input validation on all endpoints
-- MongoDB connection string stored as environment variable
-- CORS enabled for API endpoints
-- Error handling and logging
-
-## Error Handling
-
-The API returns appropriate HTTP status codes and error messages:
-
-- 200: Success
-- 201: Created
-- 400: Bad Request
-- 404: Not Found
-- 500: Internal Server Error
-
-## Contributing
+## 🤝 Contributing
 
 1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a new Pull Request
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.

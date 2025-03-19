@@ -1,6 +1,7 @@
 import { Types } from 'mongoose';
 export declare enum ApplicationStatus {
     OPEN = "Open",
+    PROCESSING = "Processing",
     CANCELLED = "Cancelled",
     REJECTED = "Rejected",
     OUTSTANDING = "Outstanding",
