@@ -1,0 +1,44 @@
+{
+  "body": "{\"firstName\":\"John\",\"lastName\":\"Doe\",\"email\":\"john.doe@example.com\",\"creditLimit\":1000}",
+  "resource": "/users",
+  "path": "/users",
+  "httpMethod": "POST",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "queryStringParameters": null,
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+    "resourcePath": "/users",
+    "httpMethod": "POST",
+    "path": "/users",
+    "requestTimeEpoch": 1742346921000,
+    "requestId": "test-request-id",
+    "accountId": "123456789012",
+    "apiId": "test-api-id",
+    "stage": "prod",
+    "identity": {
+      "cognitoIdentityPoolId": null,
+      "accountId": null,
+      "cognitoIdentityId": null,
+      "caller": null,
+      "sourceIp": "127.0.0.1",
+      "principalOrgId": null,
+      "accessKey": null,
+      "cognitoAuthenticationType": null,
+      "cognitoAuthenticationProvider": null,
+      "userArn": null,
+      "userAgent": "curl/7.64.1",
+      "user": null
+    },
+    "extendedRequestId": null,
+    "path": "/users",
+    "resourceId": "test-resource-id",
+    "httpMethod": "POST"
+  },
+  "resourcePath": "/users",
+  "httpMethod": "POST",
+  "apiId": "test-api-id",
+  "isBase64Encoded": false
+} 
